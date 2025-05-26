@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday, Sneh (Guriya)</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to top right, #ffd6e0, #fff0f5, #ffe6cc);
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 0 30px rgba(255,105,180,0.2);
+      z-index: 2;
+      position: relative;
+    }
+    .heading {
+      font-size: 2.7rem;
+      color: #e75480;
+      margin-bottom: 20px;
+      font-weight: bold;
+      text-shadow: 1px 1px 2px #fff;
+    }
+    .messages-area {
+      background: #fff8fc;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: left;
+      max-height: 300px;
+      overflow-y: auto;
+      font-size: 1.2rem;
+      color: #333;
+      line-height: 1.6;
+    }
+    .typing {
+      font-size: 1.2rem;
+      margin-top: 20px;
+      min-height: 30px;
+      color: #444;
+      font-style: italic;
+    }
+    .signature, .thankyou-typing, .final-signature {
+      margin-top: 20px;
+      font-size: 1rem;
+      color: #666;
+      display: none;
+    }
+    .final-signature {
+      font-size: 1.2rem;
+      color: #e75480;
+      font-weight: bold;
+      animation: fadeIn 2s ease forwards;
+      margin-top: 40px;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .next-btn {
+      margin-top: 30px;
+      display: none;
+    }
+    .next-btn button {
+      background-color: #ff6fa2;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .next-btn button:hover {
+      background-color: #ff4785;
+    }
+
+    /* Balloon Animation */
+    .balloon {
+      width: 30px;
+      height: 40px;
+      background: pink;
+      border-radius: 50% 50% 50% 50%;
+      position: absolute;
+      bottom: -50px;
+      animation: float 10s linear infinite;
+      opacity: 0.7;
+    }
+    .balloon::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      width: 2px;
+      height: 20px;
+      background: #999;
+    }
+    @keyframes float {
+      0% {
+        transform: translateX(0) translateY(0);
+      }
+      100% {
+        transform: translateX(-50px) translateY(-120vh);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Balloons -->
+   <audio id="myAudio" autoplay loop>
+        <source src="music/aaja_piya.mp3" type="audio/mpeg">
+        <source src="music/setlove.ogg" type="audio/ogg">
+    </audio>
+
+  <script>
+    for (let i = 0; i < 20; i++) {
+      const b = document.createElement('div');
+      b.classList.add('balloon');
+      b.style.left = Math.random() * 100 + '%';
+      b.style.background = `hsl(${Math.random() * 360}, 70%, 80%)`;
+      b.style.animationDuration = 8 + Math.random() * 5 + 's';
+      b.style.width = 20 + Math.random() * 20 + 'px';
+      b.style.height = 30 + Math.random() * 20 + 'px';
+      document.body.appendChild(b);
+    }
+  </script>
+
+  <div class="container">
+    <div class="heading">🎉 Happy Birthday, Sneh (Guriya) 🎂</div>
+    <div class="messages-area" id="messagesArea"></div>
+    <div class="typing" id="typing"></div>
+    <div class="signature" id="signature">— From someone jo ab bhi tujhe bina shor ke yaad karta hai 💖</div>
+    <div class="thankyou-typing" id="thankyou"></div>
+    <div class="final-signature" id="finalSignature">Your One And Only, Mr. Jha</div>
+    <div class="next-btn" id="nextButtonDiv">
+      <button onclick="location.href='page2.html'">Next ➡️</button>
+    </div>
+  </div>
+
+  <script>
+    const lines = [
+      "Aaj tera din hai… aur main chahta hoon ki tu uss tarah khush rahe jaise tu sach mein deserve karti hai — bina kisi tension, guilt, ya burden ke.",
+      "Tere jaise log zindagi mein aksar sirf ek baar milte hain…",
+      "Tu sirf pyaari nahi hai… tu samajhdaar hai, strong hai, aur asli hai.",
+      "Main yeh nahi keh raha ki sab kuch perfect tha… par jo tha, wo mere liye real tha.",
+      "Aur agar kabhi tere chehre pe muskaan laa saka hoon, toh shayad maine kuch toh theek kiya hoga.",
+      "Bas aaj ke din ek hi khwaish hai — tu khush rahe... poore dil se.",
+      "Aur agar kabhi mujhe yaad kare, toh sirf itna samajhna ki tere liye respect, ehsaas aur ek alag jagah kabhi khatam nahi hui.",
+      "Janmdin Mubarak ho, Sneh. 🎈🎁"
+    ];
+
+    const typingDiv = document.getElementById('typing');
+    const messagesArea = document.getElementById('messagesArea');
+    const signatureDiv = document.getElementById('signature');
+    const thankyouDiv = document.getElementById('thankyou');
+    const finalSignature = document.getElementById('finalSignature');
+    const nextButtonDiv = document.getElementById('nextButtonDiv');
+    let lineIndex = 0;
+    let displayedLines = [];
+
+    function typeLine(line, callback) {
+      let charIndex = 0;
+      typingDiv.innerHTML = "";
+      function typeChar() {
+        if (charIndex < line.length) {
+          typingDiv.innerHTML += line.charAt(charIndex);
+          charIndex++;
+          setTimeout(typeChar, 50);
+        } else {
+          displayedLines.push(line);
+          messagesArea.innerHTML = displayedLines.map(l => `<div>➤ ${l}</div>`).join('');
+          messagesArea.scrollTop = messagesArea.scrollHeight;
+          typingDiv.innerHTML = "";
+          setTimeout(callback, 700);
+        }
+      }
+      typeChar();
+    }
+
+    function showLines() {
+      if (lineIndex < lines.length) {
+        typeLine(lines[lineIndex], () => {
+          lineIndex++;
+          setTimeout(showLines, 600);
+        });
+      } else {
+        setTimeout(() => {
+          signatureDiv.style.display = 'block';
+          setTimeout(() => {
+            thankyouDiv.style.display = 'block';
+            thankyouDiv.innerText = "✨ Thank you for being a part of this world. You are deeply loved. ✨";
+            setTimeout(() => {
+              finalSignature.style.display = 'block';
+              setTimeout(() => {
+                nextButtonDiv.style.display = 'block';
+              }, 2000);
+            }, 5000);
+          }, 2000);
+        }, 2000);
+      }
+    }
+
+    showLines();
+  </script>
+</body>
+</html>
